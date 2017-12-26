@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+
+<body>
+<h1>Restaurants</h1>
+
+{% for i in restaurants %}
+
+<p>{{i.name}}</p>
+<a href="#">View Menu</a><br>
+<a href="#">Edit Restaurant</a><br>
+<a href="#">Delete Restaurant</a>
+
+
+{% endfor %}
+</body>
+</html>
