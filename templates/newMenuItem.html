@@ -7,22 +7,22 @@
 <body>
 <h1>New menu item</h1>
 
-<form action="#" method = 'post'>
+<form action= "{{ url_for('newMenuItem', restaurant_id = restaurant_id)}}" method = 'POST'>
 
   <p>Name:</p>
     <input type='text' size='30' name='name' placeholder = 'name'>
 
   <p>Description:</p>
-    <input type='text' size='30' description='description' placeholder = 'Description'>
+    <input type='text' size='30' name='description' placeholder = 'Description'>
 
   <p>Price:</p>
     <input type='text' size='30' name='price' placeholder = 'Price'>
 
   <p>Course:</p>
-    <input type='radio'  name='course' placeholder = 'Appetizer'> Appetizer<br>
-    <input type='radio'  name='course' placeholder = 'Entree'> Entree<br>
-    <input type='radio'  name='course' placeholder = 'Dessert'> Dessert<br>
-    <input type='radio'  name='course' placeholder = 'Beverage'> Beverage<br><br>
+    <input type='radio'  name='course' value='Appetizer'> Appetizer<br>
+    <input type='radio'  name='course' value='Entree'> Entree<br>
+    <input type='radio'  name='course' value='Dessert'> Dessert<br>
+    <input type='radio'  name='course' value='Beverage'> Beverage<br><br>
 
 <input type='submit' value='Create'>
 <br><br>
