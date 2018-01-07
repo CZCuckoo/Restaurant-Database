@@ -28,9 +28,17 @@ def newRestaurant():
     else:
         return render_template('newRestaurant.html', restaurants = restaurants)
 
-@app.route('/restaurant/<int:restaurant_id>/edit/')
+@app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
-    return render_template('editRestaurant.html', restaurant = restaurant)
+    editedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedRestaurant.name = request.form['name']
+        session.add(editedRestaurant)
+        session.commit()
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
+    else:
+        return render_template('editRestaurant.html', restaurant=editedRestaurant)
 
 @app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
@@ -88,3 +96,6 @@ def deleteMenuItem(restaurant_id, menu_id):
 if __name__ == '__main__':
     app.debug = True
     app.run(host = '0.0.0.0', port = 5000)
+
+#Can you go over a bit about what this is doing? Other people seem to be using form action "#" instead and it works. Prior lessons did something like this. -->
+#<form action="{{ url_for('deleteRestaurant', restaurant_id=restaurant_id)}}" method = 'POST'> -->
