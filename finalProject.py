@@ -11,6 +11,29 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+#API Endpoints
+
+@app.route('/restaurants/JSON')
+def restaurantsJSON():
+    restaurants = session.query(Restaurant).all()
+    return jsonify(Restaurants=[i.serialize for i in restaurants])
+
+@app.route('/restaurant/<int:restaurant_id>/menu/JSON')
+def restaurantMenuJSON(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    items = session.query(MenuItem).filter_by(restaurant_id = restaurant_id).all()
+    return jsonify(MenuItems=[i.serialize for i in items])
+
+
+
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def MenuItemJSON(restaurant_id, menu_id):
+    item = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, id = menu_id).one()
+    return jsonify(MenuItem=item.serialize)
+
+
+
+
 @app.route('/')
 @app.route('/restaurants')
 def showRestaurants():
